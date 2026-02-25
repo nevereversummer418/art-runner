@@ -1,0 +1,21 @@
+@echo off
+setlocal
+
+REM Build ART Runner into a single-file Windows .exe using PyInstaller
+
+where pyinstaller >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Installing build dependencies...
+    py -m pip install --upgrade pip
+    py -m pip install pyinstaller
+)
+
+echo Installing runtime dependencies...
+py -m pip install -r requirements.txt
+
+echo Building executable...
+py -m PyInstaller --noconsole --onefile --name "ART Runner" art_runner.py
+
+echo.
+echo Build complete. Find the EXE under .\dist\ART Runner.exe
+pause
